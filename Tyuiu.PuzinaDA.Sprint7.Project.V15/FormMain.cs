@@ -1,6 +1,9 @@
 using System.ComponentModel;
+using System.Runtime.Intrinsics.X86;
 using System.Windows.Forms;
 using Tyuiu.PuzinaDA.Sprint7.Project.V15.Lib;
+using static System.Windows.Forms.DataFormats;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 {
     public partial class FormMain : Form
@@ -9,6 +12,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
         {
             InitializeComponent();
         }
+
         int rows, column;
         string[,] matrix;
         private void buttonDown_PDA_Click(object sender, EventArgs e)
@@ -37,9 +41,17 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 
                     }
                 }
+                buttonFilter_PDA.Enabled = true;
+                comboBoxSort_PDA.Enabled = true;
+                buttonSorting_PDA.Enabled = true;
+                buttonPlusLine_PDA.Enabled = true;
+                textBoxSearch_PDA.Enabled = true;
+                buttonSearch_PDA.Enabled = true;
+
             }
             catch
             {
+                dataGridViewList_PDA.Rows.Clear();
                 MessageBox.Show("Выберите организацию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -60,7 +72,41 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 
         private void buttonSearch_PDA_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < dataGridViewList_PDA.RowCount; i++)
+            {
+                dataGridViewList_PDA.Rows[i].Selected = false;
+                for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
+                    if (dataGridViewList_PDA.Rows[i].Cells[j].Value != null)
+                        if (dataGridViewList_PDA.Rows[i].Cells[j].Value.ToString().Contains(textBoxSearch_PDA.Text))
+                        {
+                            dataGridViewList_PDA.Rows[i].Selected = true;
+                            break;
+                        }
+            }
+        }
+
+        private void buttonQuestion_PDA_Click(object sender, EventArgs e)
+        {
+            FormAbout formAbout = new FormAbout();
+            formAbout.ShowDialog();
             
+        }
+
+        private void buttonPlusLine_PDA_Click(object sender, EventArgs e)
+        {
+            FormAdd fa = new FormAdd();
+            if (fa.ShowDialog() == DialogResult.OK)
+            {
+                dataGridViewList_PDA.Rows.Add(1);
+                int index = dataGridViewList_PDA.Rows.Count - 2;
+                dataGridViewList_PDA.Rows[index].Cells[0].Value = fa.textBoxNumberDoc_PDA.Text;
+                dataGridViewList_PDA.Rows[index].Cells[1].Value = fa.textBoxHuman_PDA.Text;
+                dataGridViewList_PDA.Rows[index].Cells[2].Value = fa.textBoxPhone_PDA.Text;
+                dataGridViewList_PDA.Rows[index].Cells[3].Value = fa.textBoxDate_PDA.Text;
+                dataGridViewList_PDA.Rows[index].Cells[4].Value = fa.textBoxAdres_PDA.Text;
+                dataGridViewList_PDA.Rows[index].Cells[5].Value = fa.textBoxZarplata_PDA.Text;
+                dataGridViewList_PDA.Rows[index].Cells[6].Value = fa.textBoxWork_PDA.Text;
+            }
         }
     }
 }

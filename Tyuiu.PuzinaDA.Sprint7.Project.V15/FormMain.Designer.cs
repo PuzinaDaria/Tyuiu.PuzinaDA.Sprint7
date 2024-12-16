@@ -116,6 +116,7 @@
             buttonQuestion_PDA.Size = new Size(46, 45);
             buttonQuestion_PDA.TabIndex = 0;
             buttonQuestion_PDA.UseVisualStyleBackColor = true;
+            buttonQuestion_PDA.Click += buttonQuestion_PDA_Click;
             // 
             // buttonMinus_PDA
             // 
@@ -139,7 +140,7 @@
             // 
             comboBoxChoice_PDA.FormattingEnabled = true;
             comboBoxChoice_PDA.ItemHeight = 20;
-            comboBoxChoice_PDA.Items.AddRange(new object[] { "ITSpin" });
+            comboBoxChoice_PDA.Items.AddRange(new object[] { "", "ITSpin" });
             comboBoxChoice_PDA.Location = new Point(27, 27);
             comboBoxChoice_PDA.Name = "comboBoxChoice_PDA";
             comboBoxChoice_PDA.Size = new Size(147, 28);
@@ -183,6 +184,7 @@
             // 
             // comboBoxSort_PDA
             // 
+            comboBoxSort_PDA.Enabled = false;
             comboBoxSort_PDA.FormattingEnabled = true;
             comboBoxSort_PDA.Items.AddRange(new object[] { "Номер документа", "Сотрудник", "Телефон", "Адрес", "Оклад", "Должность" });
             comboBoxSort_PDA.Location = new Point(390, 5);
@@ -193,15 +195,18 @@
             // buttonPlusLine_PDA
             // 
             buttonPlusLine_PDA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonPlusLine_PDA.Location = new Point(895, 5);
+            buttonPlusLine_PDA.Enabled = false;
+            buttonPlusLine_PDA.Location = new Point(895, 3);
             buttonPlusLine_PDA.Name = "buttonPlusLine_PDA";
             buttonPlusLine_PDA.Size = new Size(28, 29);
             buttonPlusLine_PDA.TabIndex = 5;
             buttonPlusLine_PDA.Text = "+";
             buttonPlusLine_PDA.UseVisualStyleBackColor = true;
+            buttonPlusLine_PDA.Click += buttonPlusLine_PDA_Click;
             // 
             // buttonFilter_PDA
             // 
+            buttonFilter_PDA.Enabled = false;
             buttonFilter_PDA.Location = new Point(12, 3);
             buttonFilter_PDA.Name = "buttonFilter_PDA";
             buttonFilter_PDA.Size = new Size(94, 29);
@@ -211,6 +216,7 @@
             // 
             // buttonSorting_PDA
             // 
+            buttonSorting_PDA.Enabled = false;
             buttonSorting_PDA.Location = new Point(504, 3);
             buttonSorting_PDA.Name = "buttonSorting_PDA";
             buttonSorting_PDA.Size = new Size(104, 29);
@@ -222,6 +228,7 @@
             // buttonSearch_PDA
             // 
             buttonSearch_PDA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonSearch_PDA.Enabled = false;
             buttonSearch_PDA.Location = new Point(1033, 6);
             buttonSearch_PDA.Name = "buttonSearch_PDA";
             buttonSearch_PDA.Size = new Size(27, 24);
@@ -233,6 +240,7 @@
             // textBoxSearch_PDA
             // 
             textBoxSearch_PDA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxSearch_PDA.Enabled = false;
             textBoxSearch_PDA.Location = new Point(929, 5);
             textBoxSearch_PDA.Name = "textBoxSearch_PDA";
             textBoxSearch_PDA.Size = new Size(98, 27);
