@@ -213,6 +213,7 @@
             buttonFilter_PDA.TabIndex = 4;
             buttonFilter_PDA.Text = "Фильтр";
             buttonFilter_PDA.UseVisualStyleBackColor = true;
+            buttonFilter_PDA.Click += buttonFilter_PDA_Click;
             // 
             // buttonSorting_PDA
             // 
