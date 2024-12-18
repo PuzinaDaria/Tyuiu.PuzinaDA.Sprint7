@@ -57,6 +57,16 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 
         }
 
+        private void dataGridViewList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                
+            }
+        }
+
         private void buttonSorting_PDA_Click(object sender, EventArgs e)
         {
             for (int i = 0; i <= column; i++)
@@ -111,10 +121,15 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 
         private void buttonFilter_PDA_Click(object sender, EventArgs e)
         {
+            foreach (DataGridViewRow row in dataGridViewList_PDA.Rows)
+            {
+                row.Visible = true;
+            }
             FormFilter ff = new FormFilter();
             if(ff.ShowDialog() == DialogResult.OK)
             {
-                for(int i = 0; i < dataGridViewList_PDA.Rows.Count-1; i++)
+                
+                for (int i = 0; i < dataGridViewList_PDA.Rows.Count-1; i++)
                 {
                     string lineData = dataGridViewList_PDA.Rows[i].Cells[3].Value.ToString();
                     string lineZp = dataGridViewList_PDA.Rows[i].Cells[5].Value.ToString();
@@ -151,13 +166,35 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                             dataGridViewList_PDA.Rows[i].Visible = false;
                         }
                     }
-                    else if (ff.comboBoxOklad_PDA.SelectedItem == "30000-50000")
+                    if (ff.comboBoxOklad_PDA.SelectedItem == "30000-50000")
                     {
                         if (lineData == null)
                         {
                             dataGridViewList_PDA.Rows[i].Visible = false;
                         }
                         else if ((Convert.ToInt32(lineZp) < 30000)||(Convert.ToInt32(lineZp) >= 50000))
+                        {
+                            dataGridViewList_PDA.Rows[i].Visible = false;
+                        }
+                    }
+                    if (ff.comboBoxOklad_PDA.SelectedItem == "50000-80000")
+                    {
+                        if (lineData == null)
+                        {
+                            dataGridViewList_PDA.Rows[i].Visible = false;
+                        }
+                        else if ((Convert.ToInt32(lineZp) < 50000) || (Convert.ToInt32(lineZp) >= 80000))
+                        {
+                            dataGridViewList_PDA.Rows[i].Visible = false;
+                        }
+                    }
+                    if (ff.comboBoxOklad_PDA.SelectedItem == "80000 и больше")
+                    {
+                        if (lineZp == null)
+                        {
+                            dataGridViewList_PDA.Rows[i].Visible = false;
+                        }
+                        else if (Convert.ToInt32(lineZp) < 80000)
                         {
                             dataGridViewList_PDA.Rows[i].Visible = false;
                         }

@@ -30,10 +30,8 @@
         {
             textBoxZP_PDA = new TextBox();
             textBoxAdres_PDA = new TextBox();
-            textBoxWorks_PDA = new TextBox();
             comboBoxOklad_PDA = new ComboBox();
             comboBoxData_PDA = new ComboBox();
-            comboBoxWork_PDA = new ComboBox();
             buttonFilter_PDA = new Button();
             SuspendLayout();
             // 
@@ -57,20 +55,10 @@
             textBoxAdres_PDA.TabIndex = 5;
             textBoxAdres_PDA.Text = "Дата";
             // 
-            // textBoxWorks_PDA
-            // 
-            textBoxWorks_PDA.BackColor = SystemColors.Control;
-            textBoxWorks_PDA.BorderStyle = BorderStyle.None;
-            textBoxWorks_PDA.Location = new Point(11, 78);
-            textBoxWorks_PDA.Name = "textBoxWorks_PDA";
-            textBoxWorks_PDA.Size = new Size(125, 20);
-            textBoxWorks_PDA.TabIndex = 6;
-            textBoxWorks_PDA.Text = "Должность";
-            // 
             // comboBoxOklad_PDA
             // 
             comboBoxOklad_PDA.FormattingEnabled = true;
-            comboBoxOklad_PDA.Items.AddRange(new object[] { "0-30000", "30000-50000", "50000-80000", "80000-100000" });
+            comboBoxOklad_PDA.Items.AddRange(new object[] { "0-30000", "30000-50000", "50000-80000", "80000 и больше" });
             comboBoxOklad_PDA.Location = new Point(155, 11);
             comboBoxOklad_PDA.Name = "comboBoxOklad_PDA";
             comboBoxOklad_PDA.Size = new Size(151, 28);
@@ -85,19 +73,10 @@
             comboBoxData_PDA.Size = new Size(151, 28);
             comboBoxData_PDA.TabIndex = 7;
             // 
-            // comboBoxWork_PDA
-            // 
-            comboBoxWork_PDA.FormattingEnabled = true;
-            comboBoxWork_PDA.Items.AddRange(new object[] { "Директора", "Руководители", "Аналитики", "Продвижение компании", "IT-специалисты", "Уборщики и электрики", "Инженеры" });
-            comboBoxWork_PDA.Location = new Point(155, 77);
-            comboBoxWork_PDA.Name = "comboBoxWork_PDA";
-            comboBoxWork_PDA.Size = new Size(151, 28);
-            comboBoxWork_PDA.TabIndex = 7;
-            // 
             // buttonFilter_PDA
             // 
             buttonFilter_PDA.DialogResult = DialogResult.OK;
-            buttonFilter_PDA.Location = new Point(90, 111);
+            buttonFilter_PDA.Location = new Point(91, 79);
             buttonFilter_PDA.Name = "buttonFilter_PDA";
             buttonFilter_PDA.Size = new Size(108, 29);
             buttonFilter_PDA.TabIndex = 8;
@@ -109,12 +88,10 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(318, 151);
+            ClientSize = new Size(318, 115);
             Controls.Add(buttonFilter_PDA);
-            Controls.Add(comboBoxWork_PDA);
             Controls.Add(comboBoxData_PDA);
             Controls.Add(comboBoxOklad_PDA);
-            Controls.Add(textBoxWorks_PDA);
             Controls.Add(textBoxAdres_PDA);
             Controls.Add(textBoxZP_PDA);
             MaximizeBox = false;
@@ -129,10 +106,8 @@
         #endregion
         private TextBox textBoxZP_PDA;
         private TextBox textBoxAdres_PDA;
-        private TextBox textBoxWorks_PDA;
         public ComboBox comboBoxOklad_PDA;
         public ComboBox comboBoxData_PDA;
-        public ComboBox comboBoxWork_PDA;
         private Button buttonFilter_PDA;
     }
 }
