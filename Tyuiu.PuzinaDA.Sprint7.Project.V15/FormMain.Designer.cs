@@ -48,15 +48,16 @@
             textBoxSearch_PDA = new TextBox();
             panelDataGrid_PDA = new Panel();
             dataGridViewList_PDA = new DataGridView();
-            НомерДокумента = new DataGridViewTextBoxColumn();
-            Сотрудник = new DataGridViewTextBoxColumn();
-            Телефон = new DataGridViewTextBoxColumn();
-            Дата = new DataGridViewTextBoxColumn();
-            Адрес = new DataGridViewTextBoxColumn();
-            Оклад = new DataGridViewTextBoxColumn();
-            Должность = new DataGridViewTextBoxColumn();
-            ButtonSaveDoc_PDA = new DataGridViewButtonColumn();
             openFileDialogDown_PDA = new OpenFileDialog();
+            saveFileDialog_PDA = new SaveFileDialog();
+            NumberDocument = new DataGridViewTextBoxColumn();
+            Human = new DataGridViewTextBoxColumn();
+            Phone = new DataGridViewTextBoxColumn();
+            Date = new DataGridViewTextBoxColumn();
+            Adres = new DataGridViewTextBoxColumn();
+            Zarplata = new DataGridViewTextBoxColumn();
+            Work = new DataGridViewTextBoxColumn();
+            ButtonSaveDoc_PDA = new DataGridViewButtonColumn();
             panelButton_PDA.SuspendLayout();
             groupBoxFunction_PDA.SuspendLayout();
             groupBoxOrganization_PDA.SuspendLayout();
@@ -99,6 +100,7 @@
             buttonSave_PDA.TabIndex = 2;
             buttonSave_PDA.Text = "Сохранить";
             buttonSave_PDA.UseVisualStyleBackColor = true;
+            buttonSave_PDA.Click += buttonSave_PDA_Click;
             // 
             // buttonAdd_PDA
             // 
@@ -188,7 +190,7 @@
             comboBoxSort_PDA.Enabled = false;
             comboBoxSort_PDA.FormattingEnabled = true;
             comboBoxSort_PDA.Items.AddRange(new object[] { "Номер документа", "Сотрудник", "Телефон", "Адрес", "Оклад", "Должность" });
-            comboBoxSort_PDA.Location = new Point(390, 5);
+            comboBoxSort_PDA.Location = new Point(265, 4);
             comboBoxSort_PDA.Name = "comboBoxSort_PDA";
             comboBoxSort_PDA.Size = new Size(108, 28);
             comboBoxSort_PDA.TabIndex = 6;
@@ -197,11 +199,11 @@
             // 
             buttonPlusLine_PDA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonPlusLine_PDA.Enabled = false;
-            buttonPlusLine_PDA.Location = new Point(895, 3);
+            buttonPlusLine_PDA.Location = new Point(636, 4);
             buttonPlusLine_PDA.Name = "buttonPlusLine_PDA";
-            buttonPlusLine_PDA.Size = new Size(28, 29);
+            buttonPlusLine_PDA.Size = new Size(135, 29);
             buttonPlusLine_PDA.TabIndex = 5;
-            buttonPlusLine_PDA.Text = "+";
+            buttonPlusLine_PDA.Text = "Добавить строку";
             buttonPlusLine_PDA.UseVisualStyleBackColor = true;
             buttonPlusLine_PDA.Click += buttonPlusLine_PDA_Click;
             // 
@@ -219,7 +221,7 @@
             // buttonSorting_PDA
             // 
             buttonSorting_PDA.Enabled = false;
-            buttonSorting_PDA.Location = new Point(504, 3);
+            buttonSorting_PDA.Location = new Point(379, 3);
             buttonSorting_PDA.Name = "buttonSorting_PDA";
             buttonSorting_PDA.Size = new Size(104, 29);
             buttonSorting_PDA.TabIndex = 3;
@@ -260,7 +262,7 @@
             // dataGridViewList_PDA
             // 
             dataGridViewList_PDA.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewList_PDA.Columns.AddRange(new DataGridViewColumn[] { НомерДокумента, Сотрудник, Телефон, Дата, Адрес, Оклад, Должность, ButtonSaveDoc_PDA });
+            dataGridViewList_PDA.Columns.AddRange(new DataGridViewColumn[] { NumberDocument, Human, Phone, Date, Adres, Zarplata, Work, ButtonSaveDoc_PDA });
             dataGridViewList_PDA.Dock = DockStyle.Fill;
             dataGridViewList_PDA.Location = new Point(0, 0);
             dataGridViewList_PDA.Name = "dataGridViewList_PDA";
@@ -271,68 +273,68 @@
             dataGridViewList_PDA.TabIndex = 0;
             dataGridViewList_PDA.CellContentClick += dataGridViewList_CellContentClick;
             // 
-            // НомерДокумента
-            // 
-            НомерДокумента.HeaderText = "Номер документа";
-            НомерДокумента.MinimumWidth = 6;
-            НомерДокумента.Name = "НомерДокумента";
-            НомерДокумента.Width = 125;
-            // 
-            // Сотрудник
-            // 
-            Сотрудник.HeaderText = "Сотрудник";
-            Сотрудник.MinimumWidth = 6;
-            Сотрудник.Name = "Сотрудник";
-            Сотрудник.Width = 125;
-            // 
-            // Телефон
-            // 
-            Телефон.HeaderText = "Телефон";
-            Телефон.MinimumWidth = 6;
-            Телефон.Name = "Телефон";
-            Телефон.Width = 125;
-            // 
-            // Дата
-            // 
-            Дата.HeaderText = "Дата";
-            Дата.MinimumWidth = 6;
-            Дата.Name = "Дата";
-            Дата.Width = 125;
-            // 
-            // Адрес
-            // 
-            Адрес.HeaderText = "Адрес";
-            Адрес.MinimumWidth = 6;
-            Адрес.Name = "Адрес";
-            Адрес.Width = 125;
-            // 
-            // Оклад
-            // 
-            Оклад.HeaderText = "Оклад";
-            Оклад.MinimumWidth = 6;
-            Оклад.Name = "Оклад";
-            Оклад.Width = 125;
-            // 
-            // Должность
-            // 
-            Должность.HeaderText = "Должность";
-            Должность.MinimumWidth = 6;
-            Должность.Name = "Должность";
-            Должность.Width = 125;
-            // 
-            // ButtonSaveDoc_PDA
-            // 
-            ButtonSaveDoc_PDA.HeaderText = "Сохранить договор";
-            ButtonSaveDoc_PDA.MinimumWidth = 6;
-            ButtonSaveDoc_PDA.Name = "ButtonSaveDoc_PDA";
-            ButtonSaveDoc_PDA.ReadOnly = true;
-            ButtonSaveDoc_PDA.Text = "Save";
-            ButtonSaveDoc_PDA.UseColumnTextForButtonValue = true;
-            ButtonSaveDoc_PDA.Width = 125;
-            // 
             // openFileDialogDown_PDA
             // 
             openFileDialogDown_PDA.FileName = "openFileDialog1";
+            // 
+            // NumberDocument
+            // 
+            NumberDocument.HeaderText = "Номер документа";
+            NumberDocument.MinimumWidth = 6;
+            NumberDocument.Name = "NumberDocument";
+            NumberDocument.Width = 125;
+            // 
+            // Human
+            // 
+            Human.HeaderText = "Сотрудник";
+            Human.MinimumWidth = 6;
+            Human.Name = "Human";
+            Human.Width = 125;
+            // 
+            // Phone
+            // 
+            Phone.HeaderText = "Телефон";
+            Phone.MinimumWidth = 6;
+            Phone.Name = "Phone";
+            Phone.Width = 125;
+            // 
+            // Date
+            // 
+            Date.HeaderText = "Дата";
+            Date.MinimumWidth = 6;
+            Date.Name = "Date";
+            Date.Width = 125;
+            // 
+            // Adres
+            // 
+            Adres.HeaderText = "Адрес";
+            Adres.MinimumWidth = 6;
+            Adres.Name = "Adres";
+            Adres.Width = 125;
+            // 
+            // Zarplata
+            // 
+            Zarplata.HeaderText = "Оклад";
+            Zarplata.MinimumWidth = 6;
+            Zarplata.Name = "Zarplata";
+            Zarplata.Width = 125;
+            // 
+            // Work
+            // 
+            Work.HeaderText = "Должность";
+            Work.MinimumWidth = 6;
+            Work.Name = "Work";
+            Work.Width = 125;
+            // 
+            // ButtonSaveDoc_PDA
+            // 
+            ButtonSaveDoc_PDA.HeaderText = "Удалить документ";
+            ButtonSaveDoc_PDA.MinimumWidth = 6;
+            ButtonSaveDoc_PDA.Name = "ButtonSaveDoc_PDA";
+            ButtonSaveDoc_PDA.ReadOnly = true;
+            ButtonSaveDoc_PDA.Text = "Удалить";
+            ButtonSaveDoc_PDA.UseColumnTextForButtonValue = true;
+            ButtonSaveDoc_PDA.Width = 125;
             // 
             // FormMain
             // 
@@ -378,13 +380,14 @@
         private Button buttonDown_PDA;
         private OpenFileDialog openFileDialogDown_PDA;
         private ComboBox comboBoxSort_PDA;
-        private DataGridViewTextBoxColumn НомерДокумента;
-        private DataGridViewTextBoxColumn Сотрудник;
-        private DataGridViewTextBoxColumn Телефон;
-        private DataGridViewTextBoxColumn Дата;
-        private DataGridViewTextBoxColumn Адрес;
-        private DataGridViewTextBoxColumn Оклад;
-        private DataGridViewTextBoxColumn Должность;
+        private SaveFileDialog saveFileDialog_PDA;
+        private DataGridViewTextBoxColumn NumberDocument;
+        private DataGridViewTextBoxColumn Human;
+        private DataGridViewTextBoxColumn Phone;
+        private DataGridViewTextBoxColumn Date;
+        private DataGridViewTextBoxColumn Adres;
+        private DataGridViewTextBoxColumn Zarplata;
+        private DataGridViewTextBoxColumn Work;
         private DataGridViewButtonColumn ButtonSaveDoc_PDA;
     }
 }

@@ -1,9 +1,12 @@
 using System.ComponentModel;
 using System.Runtime.Intrinsics.X86;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Tyuiu.PuzinaDA.Sprint7.Project.V15.Lib;
 using static System.Windows.Forms.DataFormats;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static Tyuiu.PuzinaDA.Sprint7.Project.V15.Lib.DataService;
 namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 {
     public partial class FormMain : Form
@@ -11,6 +14,9 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
         public FormMain()
         {
             InitializeComponent();
+            openFileDialogDown_PDA.Filter = "Значения, разделённые запятой(*.csv)|*.csv|(*.*)|*.*";
+            saveFileDialog_PDA.Filter = "Значения, разделённые запятой(*.csv)|*.csv|(*.*)|*.*";
+
         }
 
         int rows, column;
@@ -63,7 +69,8 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                
+                int delet = dataGridViewList_PDA.SelectedCells[0].RowIndex;
+                dataGridViewList_PDA.Rows.RemoveAt(delet);
             }
         }
 
@@ -126,15 +133,15 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                 row.Visible = true;
             }
             FormFilter ff = new FormFilter();
-            if(ff.ShowDialog() == DialogResult.OK)
+            if (ff.ShowDialog() == DialogResult.OK)
             {
-                
-                for (int i = 0; i < dataGridViewList_PDA.Rows.Count-1; i++)
+
+                for (int i = 0; i < dataGridViewList_PDA.Rows.Count - 1; i++)
                 {
                     string lineData = dataGridViewList_PDA.Rows[i].Cells[3].Value.ToString();
                     string lineZp = dataGridViewList_PDA.Rows[i].Cells[5].Value.ToString();
                     if (ff.comboBoxData_PDA.SelectedItem == "до 2024 года")
-                    {   
+                    {
                         if (lineData == null)
                         {
                             dataGridViewList_PDA.Rows[i].Visible = false;
@@ -172,7 +179,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                         {
                             dataGridViewList_PDA.Rows[i].Visible = false;
                         }
-                        else if ((Convert.ToInt32(lineZp) < 30000)||(Convert.ToInt32(lineZp) >= 50000))
+                        else if ((Convert.ToInt32(lineZp) < 30000) || (Convert.ToInt32(lineZp) >= 50000))
                         {
                             dataGridViewList_PDA.Rows[i].Visible = false;
                         }
@@ -199,8 +206,37 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                             dataGridViewList_PDA.Rows[i].Visible = false;
                         }
                     }
-                }        
+                }
             }
         }
+
+        private void buttonSave_PDA_Click(object sender, EventArgs e)
+        {
+            saveFileDialog_PDA.FileName = ""; 
+            saveFileDialog_PDA.InitialDirectory = Directory.GetCurrentDirectory();
+            string f = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\База данных";
+            string file = Path.Combine(f, comboBoxChoice_PDA.Text + ".csv");
+            if (saveFileDialog_PDA.ShowDialog() == DialogResult.OK)
+            {
+                string path = saveFileDialog_PDA.FileName;
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance); 
+
+                string fileCSV = "";
+                for (int i = 0; i < dataGridViewList_PDA.RowCount - 1; i++)
+                {
+                    for (int j = 0; j < dataGridViewList_PDA.ColumnCount - 1; j++)
+                    {
+                        fileCSV += (dataGridViewList_PDA[j, i].Value ?? "").ToString() + ";";
+                    }
+                    fileCSV += "\r\n"; 
+                }
+
+                using (StreamWriter wr = new StreamWriter(path, false, Encoding.GetEncoding("windows-1251")))
+                {
+                    wr.Write(fileCSV);
+                }
+            }
+        }
+        
     }
 }
