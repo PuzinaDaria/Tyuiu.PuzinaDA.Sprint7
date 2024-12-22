@@ -48,8 +48,6 @@
             textBoxSearch_PDA = new TextBox();
             panelDataGrid_PDA = new Panel();
             dataGridViewList_PDA = new DataGridView();
-            openFileDialogDown_PDA = new OpenFileDialog();
-            saveFileDialog_PDA = new SaveFileDialog();
             NumberDocument = new DataGridViewTextBoxColumn();
             Human = new DataGridViewTextBoxColumn();
             Phone = new DataGridViewTextBoxColumn();
@@ -58,6 +56,10 @@
             Zarplata = new DataGridViewTextBoxColumn();
             Work = new DataGridViewTextBoxColumn();
             ButtonSaveDoc_PDA = new DataGridViewButtonColumn();
+            ButtonDelleteRow_PDA = new DataGridViewButtonColumn();
+            openFileDialogDown_PDA = new OpenFileDialog();
+            saveFileDialog_PDA = new SaveFileDialog();
+            buttonSaveAs_PDA = new Button();
             panelButton_PDA.SuspendLayout();
             groupBoxFunction_PDA.SuspendLayout();
             groupBoxOrganization_PDA.SuspendLayout();
@@ -76,18 +78,19 @@
             panelButton_PDA.Dock = DockStyle.Top;
             panelButton_PDA.Location = new Point(0, 0);
             panelButton_PDA.Name = "panelButton_PDA";
-            panelButton_PDA.Size = new Size(1063, 86);
+            panelButton_PDA.Size = new Size(1280, 86);
             panelButton_PDA.TabIndex = 0;
             // 
             // groupBoxFunction_PDA
             // 
+            groupBoxFunction_PDA.Controls.Add(buttonSaveAs_PDA);
             groupBoxFunction_PDA.Controls.Add(buttonSave_PDA);
             groupBoxFunction_PDA.Controls.Add(buttonAdd_PDA);
             groupBoxFunction_PDA.Controls.Add(buttonQuestion_PDA);
             groupBoxFunction_PDA.Dock = DockStyle.Fill;
             groupBoxFunction_PDA.Location = new Point(394, 0);
             groupBoxFunction_PDA.Name = "groupBoxFunction_PDA";
-            groupBoxFunction_PDA.Size = new Size(669, 86);
+            groupBoxFunction_PDA.Size = new Size(886, 86);
             groupBoxFunction_PDA.TabIndex = 6;
             groupBoxFunction_PDA.TabStop = false;
             groupBoxFunction_PDA.Text = "Функции";
@@ -96,7 +99,7 @@
             // 
             buttonSave_PDA.Location = new Point(110, 26);
             buttonSave_PDA.Name = "buttonSave_PDA";
-            buttonSave_PDA.Size = new Size(95, 45);
+            buttonSave_PDA.Size = new Size(91, 46);
             buttonSave_PDA.TabIndex = 2;
             buttonSave_PDA.Text = "Сохранить";
             buttonSave_PDA.UseVisualStyleBackColor = true;
@@ -114,7 +117,7 @@
             // buttonQuestion_PDA
             // 
             buttonQuestion_PDA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonQuestion_PDA.Location = new Point(611, 27);
+            buttonQuestion_PDA.Location = new Point(828, 27);
             buttonQuestion_PDA.Name = "buttonQuestion_PDA";
             buttonQuestion_PDA.Size = new Size(46, 45);
             buttonQuestion_PDA.TabIndex = 0;
@@ -182,7 +185,7 @@
             panelBut_PDA.Dock = DockStyle.Top;
             panelBut_PDA.Location = new Point(0, 86);
             panelBut_PDA.Name = "panelBut_PDA";
-            panelBut_PDA.Size = new Size(1063, 35);
+            panelBut_PDA.Size = new Size(1280, 35);
             panelBut_PDA.TabIndex = 1;
             // 
             // comboBoxSort_PDA
@@ -199,7 +202,7 @@
             // 
             buttonPlusLine_PDA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonPlusLine_PDA.Enabled = false;
-            buttonPlusLine_PDA.Location = new Point(636, 4);
+            buttonPlusLine_PDA.Location = new Point(853, 4);
             buttonPlusLine_PDA.Name = "buttonPlusLine_PDA";
             buttonPlusLine_PDA.Size = new Size(135, 29);
             buttonPlusLine_PDA.TabIndex = 5;
@@ -233,7 +236,7 @@
             // 
             buttonSearch_PDA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonSearch_PDA.Enabled = false;
-            buttonSearch_PDA.Location = new Point(1033, 6);
+            buttonSearch_PDA.Location = new Point(1250, 6);
             buttonSearch_PDA.Name = "buttonSearch_PDA";
             buttonSearch_PDA.Size = new Size(27, 24);
             buttonSearch_PDA.TabIndex = 2;
@@ -245,7 +248,7 @@
             // 
             textBoxSearch_PDA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             textBoxSearch_PDA.Enabled = false;
-            textBoxSearch_PDA.Location = new Point(929, 5);
+            textBoxSearch_PDA.Location = new Point(1146, 5);
             textBoxSearch_PDA.Name = "textBoxSearch_PDA";
             textBoxSearch_PDA.Size = new Size(98, 27);
             textBoxSearch_PDA.TabIndex = 1;
@@ -256,26 +259,22 @@
             panelDataGrid_PDA.Dock = DockStyle.Fill;
             panelDataGrid_PDA.Location = new Point(0, 121);
             panelDataGrid_PDA.Name = "panelDataGrid_PDA";
-            panelDataGrid_PDA.Size = new Size(1063, 502);
+            panelDataGrid_PDA.Size = new Size(1280, 513);
             panelDataGrid_PDA.TabIndex = 2;
             // 
             // dataGridViewList_PDA
             // 
             dataGridViewList_PDA.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewList_PDA.Columns.AddRange(new DataGridViewColumn[] { NumberDocument, Human, Phone, Date, Adres, Zarplata, Work, ButtonSaveDoc_PDA });
+            dataGridViewList_PDA.Columns.AddRange(new DataGridViewColumn[] { NumberDocument, Human, Phone, Date, Adres, Zarplata, Work, ButtonSaveDoc_PDA, ButtonDelleteRow_PDA });
             dataGridViewList_PDA.Dock = DockStyle.Fill;
             dataGridViewList_PDA.Location = new Point(0, 0);
             dataGridViewList_PDA.Name = "dataGridViewList_PDA";
             dataGridViewList_PDA.RowHeadersVisible = false;
             dataGridViewList_PDA.RowHeadersWidth = 51;
             dataGridViewList_PDA.ScrollBars = ScrollBars.Vertical;
-            dataGridViewList_PDA.Size = new Size(1063, 502);
+            dataGridViewList_PDA.Size = new Size(1280, 513);
             dataGridViewList_PDA.TabIndex = 0;
             dataGridViewList_PDA.CellContentClick += dataGridViewList_CellContentClick;
-            // 
-            // openFileDialogDown_PDA
-            // 
-            openFileDialogDown_PDA.FileName = "openFileDialog1";
             // 
             // NumberDocument
             // 
@@ -328,19 +327,42 @@
             // 
             // ButtonSaveDoc_PDA
             // 
-            ButtonSaveDoc_PDA.HeaderText = "Удалить документ";
+            ButtonSaveDoc_PDA.HeaderText = "Создать Договор";
             ButtonSaveDoc_PDA.MinimumWidth = 6;
             ButtonSaveDoc_PDA.Name = "ButtonSaveDoc_PDA";
             ButtonSaveDoc_PDA.ReadOnly = true;
-            ButtonSaveDoc_PDA.Text = "Удалить";
             ButtonSaveDoc_PDA.UseColumnTextForButtonValue = true;
             ButtonSaveDoc_PDA.Width = 125;
+            // 
+            // ButtonDelleteRow_PDA
+            // 
+            ButtonDelleteRow_PDA.HeaderText = "Удалить документ";
+            ButtonDelleteRow_PDA.MinimumWidth = 6;
+            ButtonDelleteRow_PDA.Name = "ButtonDelleteRow_PDA";
+            ButtonDelleteRow_PDA.ReadOnly = true;
+            ButtonDelleteRow_PDA.Text = "Удалить";
+            ButtonDelleteRow_PDA.UseColumnTextForButtonValue = true;
+            ButtonDelleteRow_PDA.Width = 125;
+            // 
+            // openFileDialogDown_PDA
+            // 
+            openFileDialogDown_PDA.FileName = "openFileDialog1";
+            // 
+            // buttonSaveAs_PDA
+            // 
+            buttonSaveAs_PDA.Location = new Point(207, 26);
+            buttonSaveAs_PDA.Name = "buttonSaveAs_PDA";
+            buttonSaveAs_PDA.Size = new Size(117, 45);
+            buttonSaveAs_PDA.TabIndex = 3;
+            buttonSaveAs_PDA.Text = "Сохранить как";
+            buttonSaveAs_PDA.UseVisualStyleBackColor = true;
+            buttonSaveAs_PDA.Click += buttonSaveAs_PDA_Click;
             // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1063, 623);
+            ClientSize = new Size(1280, 634);
             Controls.Add(panelDataGrid_PDA);
             Controls.Add(panelBut_PDA);
             Controls.Add(panelButton_PDA);
@@ -389,5 +411,7 @@
         private DataGridViewTextBoxColumn Zarplata;
         private DataGridViewTextBoxColumn Work;
         private DataGridViewButtonColumn ButtonSaveDoc_PDA;
+        private DataGridViewButtonColumn ButtonDelleteRow_PDA;
+        private Button buttonSaveAs_PDA;
     }
 }

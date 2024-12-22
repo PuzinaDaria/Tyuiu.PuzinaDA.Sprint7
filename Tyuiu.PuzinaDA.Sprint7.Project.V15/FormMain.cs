@@ -11,9 +11,11 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 {
     public partial class FormMain : Form
     {
+        string path;
         public FormMain()
         {
             InitializeComponent();
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             openFileDialogDown_PDA.Filter = "Значения, разделённые запятой(*.csv)|*.csv|(*.*)|*.*";
             saveFileDialog_PDA.Filter = "Значения, разделённые запятой(*.csv)|*.csv|(*.*)|*.*";
 
@@ -27,7 +29,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             {
                 DataService ds = new DataService();
                 string pt = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\База данных";
-                string path = Path.Combine(pt, comboBoxChoice_PDA.Text + ".csv");
+                path = Path.Combine(pt, comboBoxChoice_PDA.Text + ".csv");
 
                 matrix = ds.GetMatrix(path);
 
@@ -210,16 +212,51 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             }
         }
 
+        public void saveFile()
+        {
+            using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))
+            {
+                // Записываем заголовки столбцов (если нужно)
+                for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
+                {
+                    writer.Write(dataGridViewList_PDA.Columns[j].HeaderText);
+                    if (j < dataGridViewList_PDA.ColumnCount - 1)
+                    {
+                        writer.Write(";");
+                    }
+                }
+                writer.WriteLine();
+
+                // Записываем данные строк
+                for (int i = 0; i < dataGridViewList_PDA.RowCount - 1; i++)
+                {
+                    for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
+                    {
+                        writer.Write((dataGridViewList_PDA[j, i].Value ?? "").ToString());
+                        if (j < dataGridViewList_PDA.ColumnCount - 1)
+                        {
+                            writer.Write(";");
+                        }
+                    }
+                    writer.WriteLine();
+                }
+            }
+        }
         private void buttonSave_PDA_Click(object sender, EventArgs e)
         {
-            saveFileDialog_PDA.FileName = ""; 
+            saveFile();
+            
+        }
+
+        private void buttonSaveAs_PDA_Click(object sender, EventArgs e)
+        {
+            saveFileDialog_PDA.FileName = "";
             saveFileDialog_PDA.InitialDirectory = Directory.GetCurrentDirectory();
             string f = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\База данных";
             string file = Path.Combine(f, comboBoxChoice_PDA.Text + ".csv");
             if (saveFileDialog_PDA.ShowDialog() == DialogResult.OK)
             {
-                string path = saveFileDialog_PDA.FileName;
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance); 
+                string pathSave = saveFileDialog_PDA.FileName;
 
                 string fileCSV = "";
                 for (int i = 0; i < dataGridViewList_PDA.RowCount - 1; i++)
@@ -228,15 +265,15 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                     {
                         fileCSV += (dataGridViewList_PDA[j, i].Value ?? "").ToString() + ";";
                     }
-                    fileCSV += "\r\n"; 
+                    fileCSV += "\r\n";
                 }
 
-                using (StreamWriter wr = new StreamWriter(path, false, Encoding.GetEncoding("windows-1251")))
+                using (StreamWriter wr = new StreamWriter(pathSave, false, Encoding.UTF8))
                 {
                     wr.Write(fileCSV);
                 }
             }
+            saveFile();
         }
-        
     }
 }
