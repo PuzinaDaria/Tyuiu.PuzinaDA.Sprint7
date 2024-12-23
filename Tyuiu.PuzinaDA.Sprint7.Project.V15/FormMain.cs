@@ -245,7 +245,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
         private void buttonSave_PDA_Click(object sender, EventArgs e)
         {
             saveFile();
-            
+
         }
 
         private void buttonSaveAs_PDA_Click(object sender, EventArgs e)
@@ -274,6 +274,17 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                 }
             }
             saveFile();
+        }
+
+        private void buttonPlus_PDA_Click(object sender, EventArgs e)
+        {
+            FormAddOrganization fao = new FormAddOrganization();
+            if(fao.ShowDialog() == DialogResult.OK)
+            {
+                comboBoxChoice_PDA.Items.Add(fao.textBoxAddNameOrg_PDA);
+
+            }
+            
         }
     }
 }

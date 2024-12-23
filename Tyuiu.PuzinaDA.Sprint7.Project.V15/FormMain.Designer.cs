@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             panelButton_PDA = new Panel();
             groupBoxFunction_PDA = new GroupBox();
+            buttonSaveAs_PDA = new Button();
             buttonSave_PDA = new Button();
             buttonAdd_PDA = new Button();
             buttonQuestion_PDA = new Button();
@@ -59,7 +60,6 @@
             ButtonDelleteRow_PDA = new DataGridViewButtonColumn();
             openFileDialogDown_PDA = new OpenFileDialog();
             saveFileDialog_PDA = new SaveFileDialog();
-            buttonSaveAs_PDA = new Button();
             panelButton_PDA.SuspendLayout();
             groupBoxFunction_PDA.SuspendLayout();
             groupBoxOrganization_PDA.SuspendLayout();
@@ -94,6 +94,16 @@
             groupBoxFunction_PDA.TabIndex = 6;
             groupBoxFunction_PDA.TabStop = false;
             groupBoxFunction_PDA.Text = "Функции";
+            // 
+            // buttonSaveAs_PDA
+            // 
+            buttonSaveAs_PDA.Location = new Point(207, 26);
+            buttonSaveAs_PDA.Name = "buttonSaveAs_PDA";
+            buttonSaveAs_PDA.Size = new Size(117, 45);
+            buttonSaveAs_PDA.TabIndex = 3;
+            buttonSaveAs_PDA.Text = "Сохранить как";
+            buttonSaveAs_PDA.UseVisualStyleBackColor = true;
+            buttonSaveAs_PDA.Click += buttonSaveAs_PDA_Click;
             // 
             // buttonSave_PDA
             // 
@@ -141,6 +151,7 @@
             buttonPlus_PDA.TabIndex = 1;
             buttonPlus_PDA.Text = "+";
             buttonPlus_PDA.UseVisualStyleBackColor = true;
+            buttonPlus_PDA.Click += buttonPlus_PDA_Click;
             // 
             // comboBoxChoice_PDA
             // 
@@ -347,16 +358,6 @@
             // openFileDialogDown_PDA
             // 
             openFileDialogDown_PDA.FileName = "openFileDialog1";
-            // 
-            // buttonSaveAs_PDA
-            // 
-            buttonSaveAs_PDA.Location = new Point(207, 26);
-            buttonSaveAs_PDA.Name = "buttonSaveAs_PDA";
-            buttonSaveAs_PDA.Size = new Size(117, 45);
-            buttonSaveAs_PDA.TabIndex = 3;
-            buttonSaveAs_PDA.Text = "Сохранить как";
-            buttonSaveAs_PDA.UseVisualStyleBackColor = true;
-            buttonSaveAs_PDA.Click += buttonSaveAs_PDA_Click;
             // 
             // FormMain
             // 
