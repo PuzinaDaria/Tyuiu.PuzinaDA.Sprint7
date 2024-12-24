@@ -157,7 +157,6 @@
             // 
             comboBoxChoice_PDA.FormattingEnabled = true;
             comboBoxChoice_PDA.ItemHeight = 20;
-            comboBoxChoice_PDA.Items.AddRange(new object[] { "", "ITSpin" });
             comboBoxChoice_PDA.Location = new Point(27, 27);
             comboBoxChoice_PDA.Name = "comboBoxChoice_PDA";
             comboBoxChoice_PDA.Size = new Size(147, 28);
@@ -371,6 +370,7 @@
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Договорная деятельность организаций";
+            Load += FormMain_Load;
             panelButton_PDA.ResumeLayout(false);
             groupBoxFunction_PDA.ResumeLayout(false);
             groupBoxOrganization_PDA.ResumeLayout(false);

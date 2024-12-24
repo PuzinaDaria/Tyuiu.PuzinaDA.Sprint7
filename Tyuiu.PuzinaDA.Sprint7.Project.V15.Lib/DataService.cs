@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -104,8 +105,35 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15.Lib
             public string подпись_работодателя { get; set; }
             public string подпись_работника { get; set; }
         }
+        public int row = 0;
+        public string[] GetChoiceOrganization(string path)
+        {
+            int column = 0, rows = 0;
+            string line;
+            using (StreamReader sr = new StreamReader(path))
+            {
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] mass = line.Split(";");
+                    rows++;
+                }
+            }
+            row = rows;
+            string[] matrix = new string[rows];
+            using (StreamReader sr = new StreamReader(path))
+            {
+                while ((line = sr.ReadLine()) != null)
+                {
+                    for (int i = 0; i < rows; i++)
+                    {
+                        matrix[i] = line;
+                    }
+                }
+            }
+            return matrix;
+        }
+        
     }
-
 }
 
    

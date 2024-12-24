@@ -31,6 +31,8 @@
             textBoxOrganization_PDA = new TextBox();
             textBoxAddNameOrg_PDA = new TextBox();
             buttonAddOrg_PDA = new Button();
+            comboBoxAddDocument_PDA = new ComboBox();
+            openFileDialogAdd_PDA = new OpenFileDialog();
             SuspendLayout();
             // 
             // textBoxOrganization_PDA
@@ -61,11 +63,25 @@
             buttonAddOrg_PDA.UseVisualStyleBackColor = true;
             buttonAddOrg_PDA.Click += buttonAddOrg_PDA_Click;
             // 
+            // comboBoxAddDocument_PDA
+            // 
+            comboBoxAddDocument_PDA.FormattingEnabled = true;
+            comboBoxAddDocument_PDA.Items.AddRange(new object[] { "", "Создать документ", "Добавить доукмент" });
+            comboBoxAddDocument_PDA.Location = new Point(7, 66);
+            comboBoxAddDocument_PDA.Name = "comboBoxAddDocument_PDA";
+            comboBoxAddDocument_PDA.Size = new Size(151, 28);
+            comboBoxAddDocument_PDA.TabIndex = 3;
+            // 
+            // openFileDialogAdd_PDA
+            // 
+            openFileDialogAdd_PDA.FileName = "openFileDialog1";
+            // 
             // FormAddOrganization
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(249, 102);
+            Controls.Add(comboBoxAddDocument_PDA);
             Controls.Add(buttonAddOrg_PDA);
             Controls.Add(textBoxAddNameOrg_PDA);
             Controls.Add(textBoxOrganization_PDA);
@@ -80,5 +96,7 @@
         private TextBox textBoxOrganization_PDA;
         public TextBox textBoxAddNameOrg_PDA;
         public Button buttonAddOrg_PDA;
+        public ComboBox comboBoxAddDocument_PDA;
+        private OpenFileDialog openFileDialogAdd_PDA;
     }
 }

@@ -23,6 +23,14 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 
         int rows, column;
         string[,] matrix;
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            DataService ds = new DataService();
+            string path = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\Организации\Organization.csv";
+            string[] matrix = ds.GetChoiceOrganization(path);
+            comboBoxChoice_PDA.Items.AddRange(matrix);
+
+        }
         private void buttonDown_PDA_Click(object sender, EventArgs e)
         {
             try
@@ -281,10 +289,8 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             FormAddOrganization fao = new FormAddOrganization();
             if(fao.ShowDialog() == DialogResult.OK)
             {
-                comboBoxChoice_PDA.Items.Add(fao.textBoxAddNameOrg_PDA);
-
+                comboBoxChoice_PDA.Items.Add(fao.textBoxAddNameOrg_PDA.Text);
             }
-            
-        }
+        }  
     }
 }
