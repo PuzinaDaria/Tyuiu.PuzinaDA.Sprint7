@@ -114,25 +114,27 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15.Lib
             {
                 while ((line = sr.ReadLine()) != null)
                 {
-                    string[] mass = line.Split(";");
                     rows++;
                 }
             }
-            row = rows;
             string[] matrix = new string[rows];
+            int index = 0;
             using (StreamReader sr = new StreamReader(path))
             {
                 while ((line = sr.ReadLine()) != null)
                 {
-                    for (int i = 0; i < rows; i++)
-                    {
-                        matrix[i] = line;
-                    }
+                    matrix[index] = line;
+                    index++;
                 }
             }
             return matrix;
         }
-        
+        public string[] GetChoiceOrganization(string path)
+        {
+
+        }
+
+
     }
 }
 

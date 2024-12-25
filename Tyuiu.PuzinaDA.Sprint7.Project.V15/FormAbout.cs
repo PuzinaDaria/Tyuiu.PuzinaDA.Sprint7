@@ -17,7 +17,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonOk_PDA_Click(object sender, EventArgs e)
         {
             this.Close();
         }

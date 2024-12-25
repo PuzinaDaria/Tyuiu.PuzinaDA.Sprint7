@@ -55,6 +55,7 @@
             // 
             // buttonAddOrg_PDA
             // 
+            buttonAddOrg_PDA.DialogResult = DialogResult.OK;
             buttonAddOrg_PDA.Location = new Point(191, 66);
             buttonAddOrg_PDA.Name = "buttonAddOrg_PDA";
             buttonAddOrg_PDA.Size = new Size(45, 31);

@@ -142,6 +142,7 @@
             buttonMinus_PDA.TabIndex = 2;
             buttonMinus_PDA.Text = "-";
             buttonMinus_PDA.UseVisualStyleBackColor = true;
+            buttonMinus_PDA.Click += buttonMinus_PDA_Click;
             // 
             // buttonPlus_PDA
             // 

@@ -9,7 +9,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15.Test
         public void MatrixChecked()
         {
             DataService ds = new DataService();
-            string path = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\База данных\Тест.csv";
+            string path = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\Тест\Тест.csv";
             string[,] res = ds.GetMatrix(path);
             string[,] wait =
             {
@@ -20,6 +20,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15.Test
             CollectionAssert.AreEqual(res, wait);
 
         }
+        [TestMethod]
         public void TrudDogovorChecked()
         {
             DataService ds = new DataService();
@@ -58,6 +59,15 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15.Test
                 tr = true;
             }
             Assert.IsTrue(tr);
+        }
+        [TestMethod]
+        public void GetChoiceOrganizationChecked()
+        {
+            DataService ds = new DataService();
+            string path = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\Тест\Organization.csv";
+            string[] matrix = ds.GetChoiceOrganization(path);
+            string[] wait = {"ITSpin", "ffff", "dfdsfdsf", "dsfdsf", "fsdfdsfv", "vv"};
+            CollectionAssert.AreEqual(wait, matrix);
         }
     }
 }

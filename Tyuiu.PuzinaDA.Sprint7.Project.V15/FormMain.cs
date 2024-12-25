@@ -104,7 +104,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                 dataGridViewList_PDA.Rows[i].Selected = false;
                 for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
                     if (dataGridViewList_PDA.Rows[i].Cells[j].Value != null)
-                        if (dataGridViewList_PDA.Rows[i].Cells[j].Value.ToString().Contains(textBoxSearch_PDA.Text))
+                        if (dataGridViewList_PDA.Rows[i].Cells[j].Value.ToString().ToLower().Contains(textBoxSearch_PDA.Text.ToLower()))
                         {
                             dataGridViewList_PDA.Rows[i].Selected = true;
                             break;
@@ -287,10 +287,22 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
         private void buttonPlus_PDA_Click(object sender, EventArgs e)
         {
             FormAddOrganization fao = new FormAddOrganization();
-            if(fao.ShowDialog() == DialogResult.OK)
+            if (fao.ShowDialog() == DialogResult.OK)
             {
                 comboBoxChoice_PDA.Items.Add(fao.textBoxAddNameOrg_PDA.Text);
             }
-        }  
+        }
+
+        private void buttonMinus_PDA_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch
+            {
+                MessageBox.Show("Выберите организацию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

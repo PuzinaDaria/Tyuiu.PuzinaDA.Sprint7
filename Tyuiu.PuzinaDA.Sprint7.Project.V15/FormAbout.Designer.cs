@@ -64,7 +64,7 @@
             buttonOk_PDA.TabIndex = 2;
             buttonOk_PDA.Text = "OK";
             buttonOk_PDA.UseVisualStyleBackColor = false;
-            buttonOk_PDA.Click += button1_Click;
+            buttonOk_PDA.Click += buttonOk_PDA_Click;
             // 
             // FormAbout
             // 

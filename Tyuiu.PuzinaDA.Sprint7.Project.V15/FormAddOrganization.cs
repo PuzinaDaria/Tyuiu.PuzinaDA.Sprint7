@@ -37,7 +37,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                     string openFilePath = openFileDialogAdd_PDA.FileName;
                     File.Copy(openFilePath, path);
                 }
-                File.AppendAllText(fileOrg, textBoxAddNameOrg_PDA.Text);
+                File.AppendAllText(fileOrg, Environment.NewLine + textBoxAddNameOrg_PDA.Text);
                 this.Close();
 
             }
