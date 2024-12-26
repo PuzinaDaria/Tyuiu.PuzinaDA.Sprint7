@@ -129,7 +129,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15.Lib
             }
             return matrix;
         }
-        public string[] GetChoiceOrganization(string path)
+    }
         {
 
         }
