@@ -41,6 +41,7 @@
             groupBoxOrganization_PDA = new GroupBox();
             buttonDown_PDA = new Button();
             panelButton_PDA = new Panel();
+            buttonSumOklad_PDA = new Button();
             buttonDeleteRow_PDA = new Button();
             comboBoxSort_PDA = new ComboBox();
             buttonPlusLine_PDA = new Button();
@@ -185,6 +186,7 @@
             // 
             // panelButton_PDA
             // 
+            panelButton_PDA.Controls.Add(buttonSumOklad_PDA);
             panelButton_PDA.Controls.Add(buttonDeleteRow_PDA);
             panelButton_PDA.Controls.Add(comboBoxSort_PDA);
             panelButton_PDA.Controls.Add(buttonPlusLine_PDA);
@@ -198,11 +200,23 @@
             panelButton_PDA.Size = new Size(1280, 48);
             panelButton_PDA.TabIndex = 1;
             // 
+            // buttonSumOklad_PDA
+            // 
+            buttonSumOklad_PDA.BackColor = Color.FromArgb(255, 255, 192);
+            buttonSumOklad_PDA.Enabled = false;
+            buttonSumOklad_PDA.Location = new Point(937, 11);
+            buttonSumOklad_PDA.Name = "buttonSumOklad_PDA";
+            buttonSumOklad_PDA.Size = new Size(94, 29);
+            buttonSumOklad_PDA.TabIndex = 8;
+            buttonSumOklad_PDA.Text = "Оклад";
+            buttonSumOklad_PDA.UseVisualStyleBackColor = false;
+            buttonSumOklad_PDA.Click += buttonSumOklad_PDA_Click;
+            // 
             // buttonDeleteRow_PDA
             // 
             buttonDeleteRow_PDA.BackColor = Color.LightCoral;
             buttonDeleteRow_PDA.Enabled = false;
-            buttonDeleteRow_PDA.Location = new Point(555, 12);
+            buttonDeleteRow_PDA.Location = new Point(556, 12);
             buttonDeleteRow_PDA.Name = "buttonDeleteRow_PDA";
             buttonDeleteRow_PDA.Size = new Size(127, 29);
             buttonDeleteRow_PDA.TabIndex = 7;
@@ -225,7 +239,7 @@
             buttonPlusLine_PDA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonPlusLine_PDA.BackColor = Color.FromArgb(192, 255, 192);
             buttonPlusLine_PDA.Enabled = false;
-            buttonPlusLine_PDA.Location = new Point(853, 12);
+            buttonPlusLine_PDA.Location = new Point(711, 11);
             buttonPlusLine_PDA.Name = "buttonPlusLine_PDA";
             buttonPlusLine_PDA.Size = new Size(135, 29);
             buttonPlusLine_PDA.TabIndex = 5;
@@ -409,5 +423,6 @@
         private DataGridViewTextBoxColumn Zarplata;
         private DataGridViewTextBoxColumn Work;
         private ToolTip toolTip_PDA;
+        private Button buttonSumOklad_PDA;
     }
 }

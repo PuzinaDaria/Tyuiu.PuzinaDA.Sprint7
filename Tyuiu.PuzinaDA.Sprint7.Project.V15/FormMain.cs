@@ -37,7 +37,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             tt.SetToolTip(buttonSave_PDA, "Сохранить в базе данных");
             tt.SetToolTip(buttonSaveAs_PDA, "Сохранить в выбранную папку");
             tt.SetToolTip(buttonQuestion_PDA, "О программе");
-            tt.SetToolTip(buttonSearch_PDA, "Введите в поле запрос и выполните поиск"); 
+            tt.SetToolTip(buttonSearch_PDA, "Введите в поле запрос и выполните поиск");
             tt.SetToolTip(buttonDeleteRow_PDA, "Удалить выбранную строку");
             tt.SetToolTip(buttonSorting_PDA, "Выберите параметр и выполните сортировку");
             tt.SetToolTip(buttonFilter_PDA, "Фильтрация по таблице");
@@ -80,7 +80,8 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                 buttonSearch_PDA.Enabled = true;
                 buttonDeleteRow_PDA.Enabled = true;
                 buttonSave_PDA.Enabled = true;
-                buttonSaveAs_PDA.Enabled=true;
+                buttonSaveAs_PDA.Enabled = true;
+                buttonSumOklad_PDA.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -94,7 +95,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 
         private void buttonSorting_PDA_Click(object sender, EventArgs e)
         {
-            if(comboBoxSort_PDA != null)
+            if (comboBoxSort_PDA != null)
             {
                 for (int i = 0; i < column; i++)
                 {
@@ -112,7 +113,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 
         private void buttonSearch_PDA_Click(object sender, EventArgs e)
         {
-            if(textBoxSearch_PDA.Text != "")
+            if (textBoxSearch_PDA.Text != "")
                 for (int i = 0; i < dataGridViewList_PDA.RowCount; i++)
                 {
                     dataGridViewList_PDA.Rows[i].Selected = false;
@@ -126,7 +127,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                 }
             else
             {
-                MessageBox.Show("Введите искомое значение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                MessageBox.Show("Введите искомое значение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -142,8 +143,8 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             FormAdd fa = new FormAdd();
             if (fa.ShowDialog() == DialogResult.OK)
             {
-                if((fa.textBoxNumberDoc_PDA.Text != "") && (fa.textBoxHuman_PDA.Text != "") && (fa.textBoxPhone_PDA.Text != "")
-                && (fa.textBoxDate_PDA.Text != "") && (fa.textBoxAdres_PDA.Text != "") && (fa.textBoxZarplata_PDA.Text != "") 
+                if ((fa.textBoxNumberDoc_PDA.Text != "") && (fa.textBoxHuman_PDA.Text != "") && (fa.textBoxPhone_PDA.Text != "")
+                && (fa.textBoxDate_PDA.Text != "") && (fa.textBoxAdres_PDA.Text != "") && (fa.textBoxZarplata_PDA.Text != "")
                 && (fa.textBoxWork_PDA.Text != ""))
                 {
                     dataGridViewList_PDA.Rows.Add(1);
@@ -172,7 +173,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             FormFilter ff = new FormFilter();
             if (ff.ShowDialog() == DialogResult.OK)
             {
-                if((ff.comboBoxData_PDA.Text != "") || (ff.comboBoxOklad_PDA.Text != ""))
+                if ((ff.comboBoxData_PDA.Text != "") || (ff.comboBoxOklad_PDA.Text != ""))
                 {
                     for (int i = 0; i < dataGridViewList_PDA.Rows.Count - 1; i++)
                     {
@@ -262,19 +263,19 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                 for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
                 {
                     writer.Write(dataGridViewList_PDA.Columns[j].HeaderText);
-                    if (j < dataGridViewList_PDA.ColumnCount - 1) 
+                    if (j < dataGridViewList_PDA.ColumnCount - 1)
                     {
                         writer.Write(";");
                     }
                 }
                 writer.WriteLine();
 
-                for (int i = 0; i < dataGridViewList_PDA.RowCount; i++) 
+                for (int i = 0; i < dataGridViewList_PDA.RowCount; i++)
                 {
                     for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
                     {
-                        writer.Write((dataGridViewList_PDA[j, i].Value ?? "").ToString()); 
-                        if (j < dataGridViewList_PDA.ColumnCount - 1) 
+                        writer.Write((dataGridViewList_PDA[j, i].Value ?? "").ToString());
+                        if (j < dataGridViewList_PDA.ColumnCount - 1)
                         {
                             writer.Write(";");
                         }
@@ -322,7 +323,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             FormAddOrganization fao = new FormAddOrganization();
             if (fao.ShowDialog() == DialogResult.OK)
             {
-                if((fao.comboBoxAddDocument_PDA.Text != "")&&(fao.textBoxAddNameOrg_PDA.Text != ""))
+                if ((fao.comboBoxAddDocument_PDA.Text != "") && (fao.textBoxAddNameOrg_PDA.Text != ""))
                 {
                     comboBoxChoice_PDA.Items.Add(fao.textBoxAddNameOrg_PDA.Text);
                 }
@@ -365,6 +366,16 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
         {
             int delet = dataGridViewList_PDA.SelectedCells[0].RowIndex;
             dataGridViewList_PDA.Rows.RemoveAt(delet);
+        }
+
+        private void buttonSumOklad_PDA_Click(object sender, EventArgs e)
+        {
+            int sum = 0;
+            for (int i = 0; i < rows; i++)
+            {
+                sum += Convert.ToInt32(dataGridViewList_PDA.Rows[i].Cells[5].Value);
+            }
+            MessageBox.Show(sum.ToString() + " руб.", "Суммарный оклад", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
