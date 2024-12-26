@@ -21,6 +21,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
         private void buttonAdd_PDA_Click(object sender, EventArgs e)
         {
             this.Close();
+            
         }
     }
 }

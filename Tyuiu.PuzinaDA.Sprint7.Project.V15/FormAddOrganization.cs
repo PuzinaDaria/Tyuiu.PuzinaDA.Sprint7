@@ -24,22 +24,23 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             
             try
             {
-                path = Path.Combine(@"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\База данных", textBoxAddNameOrg_PDA.Text + ".csv");
-                string fileOrg = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\Организации\Organization.csv";
-                if (comboBoxAddDocument_PDA.SelectedItem == "Создать документ")
+                if ((comboBoxAddDocument_PDA.Text != "") && (textBoxAddNameOrg_PDA.Text != ""))
                 {
-                    File.Create(path);
+                    path = Path.Combine(@"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\База данных", textBoxAddNameOrg_PDA.Text + ".csv");
+                    string fileOrg = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\Организации\Organization.csv";
+                    if (comboBoxAddDocument_PDA.SelectedItem == "Создать документ")
+                    {
+                        File.Create(path);
 
+                    }
+                    if (comboBoxAddDocument_PDA.SelectedItem == "Добавить доукмент")
+                    {
+                        openFileDialogAdd_PDA.ShowDialog();
+                        string openFilePath = openFileDialogAdd_PDA.FileName;
+                        File.Copy(openFilePath, path);
+                    }
+                    File.AppendAllText(fileOrg, Environment.NewLine + textBoxAddNameOrg_PDA.Text);
                 }
-                if (comboBoxAddDocument_PDA.SelectedItem == "Добавить доукмент")
-                {
-                    openFileDialogAdd_PDA.ShowDialog();
-                    string openFilePath = openFileDialogAdd_PDA.FileName;
-                    File.Copy(openFilePath, path);
-                }
-                File.AppendAllText(fileOrg, Environment.NewLine + textBoxAddNameOrg_PDA.Text);
-                this.Close();
-
             }
             catch
             {

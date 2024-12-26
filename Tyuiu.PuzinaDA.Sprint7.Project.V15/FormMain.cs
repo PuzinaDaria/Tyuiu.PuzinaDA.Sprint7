@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Tyuiu.PuzinaDA.Sprint7.Project.V15.Lib;
 using static System.Windows.Forms.DataFormats;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using static Tyuiu.PuzinaDA.Sprint7.Project.V15.Lib.DataService;
 namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 {
@@ -29,6 +30,17 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             string path = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\Организации\Organization.csv";
             string[] matrix = ds.GetChoiceOrganization(path);
             comboBoxChoice_PDA.Items.AddRange(matrix);
+            System.Windows.Forms.ToolTip tt = new System.Windows.Forms.ToolTip();
+            tt.SetToolTip(buttonDown_PDA, "Вывести таблицу с данными");
+            tt.SetToolTip(buttonPlus_PDA, "Добавить организацию");
+            tt.SetToolTip(buttonMinus_PDA, "Удалить организацию");
+            tt.SetToolTip(buttonSave_PDA, "Сохранить в базе данных");
+            tt.SetToolTip(buttonSaveAs_PDA, "Сохранить в выбранную папку");
+            tt.SetToolTip(buttonQuestion_PDA, "О программе");
+            tt.SetToolTip(buttonSearch_PDA, "Введите в поле запрос и выполните поиск"); 
+            tt.SetToolTip(buttonDeleteRow_PDA, "Удалить выбранную строку");
+            tt.SetToolTip(buttonSorting_PDA, "Выберите параметр и выполните сортировку");
+            tt.SetToolTip(buttonFilter_PDA, "Фильтрация по таблице");
 
         }
         private void buttonDown_PDA_Click(object sender, EventArgs e)
@@ -41,20 +53,23 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
 
                 matrix = ds.GetMatrix(path);
 
-                rows = matrix.GetLength(0) + 1;
-                column = (matrix.Length / rows);
+                rows = matrix.GetLength(0);
+
+                MessageBox.Show(rows.ToString(), "количество строк", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                column = matrix.GetLength(1);
 
                 dataGridViewList_PDA.RowCount = rows;
 
                 dataGridViewList_PDA.Columns[1].Width = 200;
                 dataGridViewList_PDA.Columns[4].Width = 200;
                 dataGridViewList_PDA.Columns[6].Width = 200;
-                for (int i = 0; i < rows - 1; i++)
+
+                for (int i = 0; i < rows; i++)
                 {
-                    for (int j = 0; j <= column; j++)
+                    for (int j = 0; j < column; j++)
                     {
                         dataGridViewList_PDA.Rows[i].Cells[j].Value = matrix[i, j];
-
                     }
                 }
                 buttonFilter_PDA.Enabled = true;
@@ -63,52 +78,55 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                 buttonPlusLine_PDA.Enabled = true;
                 textBoxSearch_PDA.Enabled = true;
                 buttonSearch_PDA.Enabled = true;
-
+                buttonDeleteRow_PDA.Enabled = true;
+                buttonSave_PDA.Enabled = true;
+                buttonSaveAs_PDA.Enabled=true;
             }
-            catch
+            catch (Exception ex)
             {
                 dataGridViewList_PDA.Rows.Clear();
-                MessageBox.Show("Выберите организацию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка: {ex.Message}. Выберите организацию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-        }
 
-        private void dataGridViewList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
-            {
-                int delet = dataGridViewList_PDA.SelectedCells[0].RowIndex;
-                dataGridViewList_PDA.Rows.RemoveAt(delet);
-            }
         }
 
         private void buttonSorting_PDA_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i <= column; i++)
+            if(comboBoxSort_PDA != null)
             {
-                if (dataGridViewList_PDA.Columns[i].HeaderText == comboBoxSort_PDA.Text)
+                for (int i = 0; i < column; i++)
                 {
-                    dataGridViewList_PDA.Sort(dataGridViewList_PDA.Columns[i], ListSortDirection.Ascending);
+                    if (dataGridViewList_PDA.Columns[i].HeaderText == comboBoxSort_PDA.Text)
+                    {
+                        dataGridViewList_PDA.Sort(dataGridViewList_PDA.Columns[i], ListSortDirection.Ascending);
+                    }
                 }
             }
-
-
+            else
+            {
+                MessageBox.Show("Выберите столбец, который нужно отсортировать", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void buttonSearch_PDA_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < dataGridViewList_PDA.RowCount; i++)
+            if(textBoxSearch_PDA.Text != "")
+                for (int i = 0; i < dataGridViewList_PDA.RowCount; i++)
+                {
+                    dataGridViewList_PDA.Rows[i].Selected = false;
+                    for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
+                        if (dataGridViewList_PDA.Rows[i].Cells[j].Value != null)
+                            if (dataGridViewList_PDA.Rows[i].Cells[j].Value.ToString().ToLower().Contains(textBoxSearch_PDA.Text.ToLower()))
+                            {
+                                dataGridViewList_PDA.Rows[i].Selected = true;
+                                break;
+                            }
+                }
+            else
             {
-                dataGridViewList_PDA.Rows[i].Selected = false;
-                for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
-                    if (dataGridViewList_PDA.Rows[i].Cells[j].Value != null)
-                        if (dataGridViewList_PDA.Rows[i].Cells[j].Value.ToString().ToLower().Contains(textBoxSearch_PDA.Text.ToLower()))
-                        {
-                            dataGridViewList_PDA.Rows[i].Selected = true;
-                            break;
-                        }
+                MessageBox.Show("Введите искомое значение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }
         }
 
@@ -124,15 +142,24 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             FormAdd fa = new FormAdd();
             if (fa.ShowDialog() == DialogResult.OK)
             {
-                dataGridViewList_PDA.Rows.Add(1);
-                int index = dataGridViewList_PDA.Rows.Count - 2;
-                dataGridViewList_PDA.Rows[index].Cells[0].Value = fa.textBoxNumberDoc_PDA.Text;
-                dataGridViewList_PDA.Rows[index].Cells[1].Value = fa.textBoxHuman_PDA.Text;
-                dataGridViewList_PDA.Rows[index].Cells[2].Value = fa.textBoxPhone_PDA.Text;
-                dataGridViewList_PDA.Rows[index].Cells[3].Value = fa.textBoxDate_PDA.Text;
-                dataGridViewList_PDA.Rows[index].Cells[4].Value = fa.textBoxAdres_PDA.Text;
-                dataGridViewList_PDA.Rows[index].Cells[5].Value = fa.textBoxZarplata_PDA.Text;
-                dataGridViewList_PDA.Rows[index].Cells[6].Value = fa.textBoxWork_PDA.Text;
+                if((fa.textBoxNumberDoc_PDA.Text != "") && (fa.textBoxHuman_PDA.Text != "") && (fa.textBoxPhone_PDA.Text != "")
+                && (fa.textBoxDate_PDA.Text != "") && (fa.textBoxAdres_PDA.Text != "") && (fa.textBoxZarplata_PDA.Text != "") 
+                && (fa.textBoxWork_PDA.Text != ""))
+                {
+                    dataGridViewList_PDA.Rows.Add(1);
+                    int index = dataGridViewList_PDA.Rows.Count - 2;
+                    dataGridViewList_PDA.Rows[index].Cells[0].Value = fa.textBoxNumberDoc_PDA.Text;
+                    dataGridViewList_PDA.Rows[index].Cells[1].Value = fa.textBoxHuman_PDA.Text;
+                    dataGridViewList_PDA.Rows[index].Cells[2].Value = fa.textBoxPhone_PDA.Text;
+                    dataGridViewList_PDA.Rows[index].Cells[3].Value = fa.textBoxDate_PDA.Text;
+                    dataGridViewList_PDA.Rows[index].Cells[4].Value = fa.textBoxAdres_PDA.Text;
+                    dataGridViewList_PDA.Rows[index].Cells[5].Value = fa.textBoxZarplata_PDA.Text;
+                    dataGridViewList_PDA.Rows[index].Cells[6].Value = fa.textBoxWork_PDA.Text;
+                }
+                else
+                {
+                    MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -145,103 +172,109 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             FormFilter ff = new FormFilter();
             if (ff.ShowDialog() == DialogResult.OK)
             {
-
-                for (int i = 0; i < dataGridViewList_PDA.Rows.Count - 1; i++)
+                if((ff.comboBoxData_PDA.Text != "") || (ff.comboBoxOklad_PDA.Text != ""))
                 {
-                    string lineData = dataGridViewList_PDA.Rows[i].Cells[3].Value.ToString();
-                    string lineZp = dataGridViewList_PDA.Rows[i].Cells[5].Value.ToString();
-                    if (ff.comboBoxData_PDA.SelectedItem == "до 2024 года")
+                    for (int i = 0; i < dataGridViewList_PDA.Rows.Count - 1; i++)
                     {
-                        if (lineData == null)
+                        string lineData = dataGridViewList_PDA.Rows[i].Cells[3].Value.ToString();
+                        string lineZp = dataGridViewList_PDA.Rows[i].Cells[5].Value.ToString();
+                        if (ff.comboBoxData_PDA.SelectedItem == "до 2024 года")
                         {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
+                            if (lineData == null)
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
+                            else if (lineData[9] >= '4')
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
                         }
-                        else if (lineData[9] >= '4')
+                        else if (ff.comboBoxData_PDA.SelectedItem == "с 2024 года")
                         {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
+                            if (lineData == null)
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
+                            else if (lineData[9] < '4')
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
+                        }
+                        if (ff.comboBoxOklad_PDA.SelectedItem == "0-30000")
+                        {
+                            if (lineZp == null)
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
+                            else if (Convert.ToInt32(lineZp) >= 30000)
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
+                        }
+                        if (ff.comboBoxOklad_PDA.SelectedItem == "30000-50000")
+                        {
+                            if (lineData == null)
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
+                            else if ((Convert.ToInt32(lineZp) < 30000) || (Convert.ToInt32(lineZp) >= 50000))
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
+                        }
+                        if (ff.comboBoxOklad_PDA.SelectedItem == "50000-80000")
+                        {
+                            if (lineData == null)
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
+                            else if ((Convert.ToInt32(lineZp) < 50000) || (Convert.ToInt32(lineZp) >= 80000))
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
+                        }
+                        if (ff.comboBoxOklad_PDA.SelectedItem == "80000 и больше")
+                        {
+                            if (lineZp == null)
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
+                            else if (Convert.ToInt32(lineZp) < 80000)
+                            {
+                                dataGridViewList_PDA.Rows[i].Visible = false;
+                            }
                         }
                     }
-                    else if (ff.comboBoxData_PDA.SelectedItem == "с 2024 года")
-                    {
-                        if (lineData == null)
-                        {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
-                        }
-                        else if (lineData[9] < '4')
-                        {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
-                        }
-                    }
-                    if (ff.comboBoxOklad_PDA.SelectedItem == "0-30000")
-                    {
-                        if (lineZp == null)
-                        {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
-                        }
-                        else if (Convert.ToInt32(lineZp) >= 30000)
-                        {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
-                        }
-                    }
-                    if (ff.comboBoxOklad_PDA.SelectedItem == "30000-50000")
-                    {
-                        if (lineData == null)
-                        {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
-                        }
-                        else if ((Convert.ToInt32(lineZp) < 30000) || (Convert.ToInt32(lineZp) >= 50000))
-                        {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
-                        }
-                    }
-                    if (ff.comboBoxOklad_PDA.SelectedItem == "50000-80000")
-                    {
-                        if (lineData == null)
-                        {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
-                        }
-                        else if ((Convert.ToInt32(lineZp) < 50000) || (Convert.ToInt32(lineZp) >= 80000))
-                        {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
-                        }
-                    }
-                    if (ff.comboBoxOklad_PDA.SelectedItem == "80000 и больше")
-                    {
-                        if (lineZp == null)
-                        {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
-                        }
-                        else if (Convert.ToInt32(lineZp) < 80000)
-                        {
-                            dataGridViewList_PDA.Rows[i].Visible = false;
-                        }
-                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите нужные параметры!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         public void saveFile()
         {
+            string pt = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\База данных";
+            string path = Path.Combine(pt, comboBoxChoice_PDA.Text + ".csv");
             using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))
             {
-                // Записываем заголовки столбцов (если нужно)
                 for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
                 {
                     writer.Write(dataGridViewList_PDA.Columns[j].HeaderText);
-                    if (j < dataGridViewList_PDA.ColumnCount - 1)
+                    if (j < dataGridViewList_PDA.ColumnCount - 1) 
                     {
                         writer.Write(";");
                     }
                 }
                 writer.WriteLine();
 
-                // Записываем данные строк
-                for (int i = 0; i < dataGridViewList_PDA.RowCount - 1; i++)
+                for (int i = 0; i < dataGridViewList_PDA.RowCount; i++) 
                 {
                     for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
                     {
-                        writer.Write((dataGridViewList_PDA[j, i].Value ?? "").ToString());
-                        if (j < dataGridViewList_PDA.ColumnCount - 1)
+                        writer.Write((dataGridViewList_PDA[j, i].Value ?? "").ToString()); 
+                        if (j < dataGridViewList_PDA.ColumnCount - 1) 
                         {
                             writer.Write(";");
                         }
@@ -269,7 +302,7 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
                 string fileCSV = "";
                 for (int i = 0; i < dataGridViewList_PDA.RowCount - 1; i++)
                 {
-                    for (int j = 0; j < dataGridViewList_PDA.ColumnCount - 1; j++)
+                    for (int j = 0; j < dataGridViewList_PDA.ColumnCount; j++)
                     {
                         fileCSV += (dataGridViewList_PDA[j, i].Value ?? "").ToString() + ";";
                     }
@@ -289,20 +322,49 @@ namespace Tyuiu.PuzinaDA.Sprint7.Project.V15
             FormAddOrganization fao = new FormAddOrganization();
             if (fao.ShowDialog() == DialogResult.OK)
             {
-                comboBoxChoice_PDA.Items.Add(fao.textBoxAddNameOrg_PDA.Text);
+                if((fao.comboBoxAddDocument_PDA.Text != "")&&(fao.textBoxAddNameOrg_PDA.Text != ""))
+                {
+                    comboBoxChoice_PDA.Items.Add(fao.textBoxAddNameOrg_PDA.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         private void buttonMinus_PDA_Click(object sender, EventArgs e)
         {
+            DataService ds = new DataService();
             try
             {
+                if (comboBoxChoice_PDA.Text != "")
+                {
+                    if (MessageBox.Show("Вы уверены, что хотите удалить организацию?", "Ошибка", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                    {
 
+                        string srtr = @"C:\Users\daria\source\repos\Tyuiu.PuzinaDA.Sprint7\Материал\Организации\Organization.csv";
+                        string item = comboBoxChoice_PDA.Text;
+                        ds.DeleteItemChoice(srtr, item);
+                        comboBoxChoice_PDA.Items.RemoveAt(comboBoxChoice_PDA.SelectedIndex);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите организацию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch
             {
                 MessageBox.Show("Выберите организацию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+        }
+
+        private void buttonDeleteRow_PDA_Click(object sender, EventArgs e)
+        {
+            int delet = dataGridViewList_PDA.SelectedCells[0].RowIndex;
+            dataGridViewList_PDA.Rows.RemoveAt(delet);
         }
     }
 }

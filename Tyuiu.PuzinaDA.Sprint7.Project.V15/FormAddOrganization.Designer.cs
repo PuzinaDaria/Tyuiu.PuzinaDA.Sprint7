@@ -86,6 +86,8 @@
             Controls.Add(buttonAddOrg_PDA);
             Controls.Add(textBoxAddNameOrg_PDA);
             Controls.Add(textBoxOrganization_PDA);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormAddOrganization";
             Text = "Добавить организацию";
             ResumeLayout(false);

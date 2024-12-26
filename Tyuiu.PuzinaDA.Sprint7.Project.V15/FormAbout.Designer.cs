@@ -53,6 +53,7 @@
             textBoxAbout_PDA.ReadOnly = true;
             textBoxAbout_PDA.Size = new Size(401, 184);
             textBoxAbout_PDA.TabIndex = 1;
+            textBoxAbout_PDA.TabStop = false;
             textBoxAbout_PDA.Text = resources.GetString("textBoxAbout_PDA.Text");
             // 
             // buttonOk_PDA

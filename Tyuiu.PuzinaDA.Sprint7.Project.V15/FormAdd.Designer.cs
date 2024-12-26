@@ -209,6 +209,8 @@
             Controls.Add(textBoxNumberDoc_PDA);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormAdd";
             Text = "Добавить данные";
             ResumeLayout(false);
